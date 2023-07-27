@@ -100,10 +100,13 @@ import com.jwplayer.pub.api.events.listeners.VideoPlayerEvents.OnSeekedListener
 import com.jwplayer.pub.api.events.listeners.VideoPlayerEvents.OnSetupErrorListener
 import com.jwplayer.pub.api.events.listeners.VideoPlayerEvents.OnTimeListener
 import com.jwplayer.pub.api.events.listeners.VideoPlayerEvents.OnVisualQualityListener
+import com.jwplayer.pub.api.media.captions.CaptionType
+import com.jwplayer.pub.api.media.playlists.MediaFile
 import com.jwplayer.pub.api.media.playlists.PlaylistItem
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import kotlin.math.floor
 
 /**
  * Outputs all JW Player Events to your console and the Log TextView
@@ -130,57 +133,57 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     OnAdCompleteListener, OnAdSkippedListener, OnAdCompanionsListener, OnAdRequestListener,
     OnBeforeCompleteListener, OnBeforePlayListener, OnAdStartedListener {
     // CALLBACKS
-    private var mCallbackLog: TextView? = null
-    private var mCallbackPlayerVersion: TextView? = null
-    private var mCallbacksList: ArrayList<CheckBox?>? = null
-    private var mCheckAll: CheckBox? = null
-    private var mOnIdleCheckBox: CheckBox? = null
-    private var mOnBufferingCheckBox: CheckBox? = null
-    private var mOnPlayCheckBox: CheckBox? = null
-    private var mOnPauseCheckBox: CheckBox? = null
-    private var mOnCompleteCheckBox: CheckBox? = null
-    private var mOnErrorCheckBox: CheckBox? = null
-    private var mOnFullscreenCheckBox: CheckBox? = null
-    private var mOnSeekCheckBox: CheckBox? = null
-    private var mOnTimeCheckBox: CheckBox? = null
-    private var mOnAdPlayCheckBox: CheckBox? = null
-    private var mOnAdPauseCheckBox: CheckBox? = null
-    private var mOnAdCompleteCheckBox: CheckBox? = null
-    private var mOnAdErrorCheckBox: CheckBox? = null
-    private var mOnAdSkipCheckBox: CheckBox? = null
-    private var mOnAdTimeCheckBox: CheckBox? = null
-    private var mOnAdClickCheckBox: CheckBox? = null
-    private var mOnAdImpressionCheckBox: CheckBox? = null
-    private var mOnAdRequestCheckBox: CheckBox? = null
-    private var mOnAudioTracksCheckBox: CheckBox? = null
-    private var mOnAudioTracksChangedCheckBox: CheckBox? = null
-    private var mOnLevelsCheckBox: CheckBox? = null
-    private var mOnLevelsChangedCheckBox: CheckBox? = null
-    private var mOnSeekedCheckBox: CheckBox? = null
-    private var mOnFirstFrameCheckBox: CheckBox? = null
-    private var mOnDisplayClickCheckBox: CheckBox? = null
-    private var mOnPlaylistCompleteCheckBox: CheckBox? = null
-    private var mOnMetaCheckBox: CheckBox? = null
-    private var mOnCaptionsChangedCheckBox: CheckBox? = null
-    private var mOnCaptionsListCheckBox: CheckBox? = null
-    private var mOnPlaylistItemCheckBox: CheckBox? = null
-    private var mOnPlaylistCheckBox: CheckBox? = null
-    private var mOnSetupErrorCheckBox: CheckBox? = null
-    private var mOnBeforeCompleteCheckBox: CheckBox? = null
-    private var mOnBeforePlayCheckBox: CheckBox? = null
-    private var mOnMuteCheckBox: CheckBox? = null
-    private var mOnVisualQualityCheckBox: CheckBox? = null
-    private var mOnAdStartedCheckBox: CheckBox? = null
-    private var mTimeSeconds: CheckBox? = null
-    private var mOnControls: CheckBox? = null
-    private var mOnControlbarVisibilityChanged: CheckBox? = null
-    private var mOnBufferChange: CheckBox? = null
-    private var mOnRelatedClose: CheckBox? = null
-    private var mOnRelatedOpen: CheckBox? = null
-    private var mOnRelatedPlay: CheckBox? = null
-    private var mOnAdCompanion: CheckBox? = null
-    private var mOnAdSchedule: CheckBox? = null
-    private var mPlayer: JWPlayer? = null
+    private lateinit var mCallbackLog: TextView
+    private lateinit var mCallbackPlayerVersion: TextView
+    private lateinit var mCallbacksList: ArrayList<CheckBox>
+    private lateinit var mCheckAll: CheckBox
+    private lateinit var mOnIdleCheckBox: CheckBox
+    private lateinit var mOnBufferingCheckBox: CheckBox
+    private lateinit var mOnPlayCheckBox: CheckBox
+    private lateinit var mOnPauseCheckBox: CheckBox
+    private lateinit var mOnCompleteCheckBox: CheckBox
+    private lateinit var mOnErrorCheckBox: CheckBox
+    private lateinit var mOnFullscreenCheckBox: CheckBox
+    private lateinit var mOnSeekCheckBox: CheckBox
+    private lateinit var mOnTimeCheckBox: CheckBox
+    private lateinit var mOnAdPlayCheckBox: CheckBox
+    private lateinit var mOnAdPauseCheckBox: CheckBox
+    private lateinit var mOnAdCompleteCheckBox: CheckBox
+    private lateinit var mOnAdErrorCheckBox: CheckBox
+    private lateinit var mOnAdSkipCheckBox: CheckBox
+    private lateinit var mOnAdTimeCheckBox: CheckBox
+    private lateinit var mOnAdClickCheckBox: CheckBox
+    private lateinit var mOnAdImpressionCheckBox: CheckBox
+    private lateinit var mOnAdRequestCheckBox: CheckBox
+    private lateinit var mOnAudioTracksCheckBox: CheckBox
+    private lateinit var mOnAudioTracksChangedCheckBox: CheckBox
+    private lateinit var mOnLevelsCheckBox: CheckBox
+    private lateinit var mOnLevelsChangedCheckBox: CheckBox
+    private lateinit var mOnSeekedCheckBox: CheckBox
+    private lateinit var mOnFirstFrameCheckBox: CheckBox
+    private lateinit var mOnDisplayClickCheckBox: CheckBox
+    private lateinit var mOnPlaylistCompleteCheckBox: CheckBox
+    private lateinit var mOnMetaCheckBox: CheckBox
+    private lateinit var mOnCaptionsChangedCheckBox:CheckBox
+    private lateinit var mOnCaptionsListCheckBox:CheckBox
+    private lateinit var mOnPlaylistItemCheckBox: CheckBox
+    private lateinit var mOnPlaylistCheckBox: CheckBox
+    private lateinit var mOnSetupErrorCheckBox: CheckBox
+    private lateinit var mOnBeforeCompleteCheckBox: CheckBox
+    private lateinit var mOnBeforePlayCheckBox: CheckBox
+    private lateinit var mOnMuteCheckBox: CheckBox
+    private lateinit var mOnVisualQualityCheckBox: CheckBox
+    private lateinit var mOnAdStartedCheckBox: CheckBox
+    private lateinit var mTimeSeconds: CheckBox
+    private lateinit var mOnControls: CheckBox
+    private lateinit var mOnControlbarVisibilityChanged: CheckBox
+    private lateinit var mOnBufferChange: CheckBox
+    private lateinit var mOnRelatedClose: CheckBox
+    private lateinit var mOnRelatedOpen: CheckBox
+    private lateinit var mOnRelatedPlay: CheckBox
+    private lateinit var mOnAdCompanion: CheckBox
+    private lateinit var mOnAdSchedule: CheckBox
+    private lateinit var mPlayer: JWPlayer
     private var timeInSeconds = false
 
     constructor(context: Context?) : super(context) {
@@ -201,11 +204,11 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
 
     private fun setOutput(output: String) {
         Log.d("CallbackScreen", output)
-        mCallbackLog!!.append(
+        mCallbackLog.append(
             """
     $output
-    
-    
+
+
     """.trimIndent()
         )
     }
@@ -273,7 +276,7 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
         val adSystem = event.adSystem
         val adTitle = event.adTitle
         val linear = event.linear
-        val mediaFile = if (event.mediaFile != null) event.mediaFile!!.file else ""
+        val mediaFile = if (event.mediaFile != MediaFile("")) event.mediaFile?.file else ""
         val vastVersion = event.vastVersion
         val clickThroughUrl = event.clickThroughUrl
         val output = """
@@ -343,17 +346,17 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
         setOutput(output)
     }
 
-    private var mOldAdTimeSeconds = 0.0
-    private var mOldAdDurationSeconds = 0.0
+    private  var mOldAdTimeSeconds = 0.0
+    private  var mOldAdDurationSeconds = 0.0
     override fun onAdTime(event: AdTimeEvent) {
         val creativeType = event.creativeType
         val sequence = event.sequence
         val tag = event.tag
         val position = event.position
         val duration = event.duration
-        if (mTimeSeconds!!.isChecked) {
-            val adTimeSeconds = Math.floor(position / 1000)
-            val adDurationSeconds = Math.floor(duration / 1000)
+        if (mTimeSeconds.isChecked) {
+            val adTimeSeconds = floor(position / 1000)
+            val adDurationSeconds = floor(duration / 1000)
             if (mOldAdTimeSeconds != adTimeSeconds || mOldAdDurationSeconds != adDurationSeconds) {
                 mOldAdTimeSeconds = adTimeSeconds
                 mOldAdDurationSeconds = adDurationSeconds
@@ -421,21 +424,21 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     }
 
     fun registerListeners(player: JWPlayer?) {
-        mPlayer = player
+        if (player != null) {
+            mPlayer = player
+        }
         mCallbackPlayerVersion = findViewById(R.id.callback_player_version)
-        mCallbackPlayerVersion.setText("Player Version: " + mPlayer!!.versionCode)
+        mCallbackPlayerVersion.text = "Player Version: " + mPlayer.versionCode
         mCallbackLog = findViewById(R.id.callback_status_tv)
-        mCallbackLog.setMovementMethod(ScrollingMovementMethod())
+        mCallbackLog.movementMethod = ScrollingMovementMethod()
 
 
         //         This handles clearing the log
         findViewById<View>(R.id.callback_clear_btn).setOnClickListener { v: View? ->
-            mCallbackLog.setText(
-                ""
-            )
+            mCallbackLog.text = ""
         }
         mTimeSeconds = findViewById(R.id.callback_time_seconds)
-        mTimeSeconds.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
+        mTimeSeconds.setOnCheckedChangeListener({ buttonView: CompoundButton?, isChecked: Boolean ->
             timeInSeconds = isChecked
         })
         mOnCompleteCheckBox = findViewById(R.id.callback_on_complete_check)
@@ -622,65 +625,65 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
 
         // handles unchecking all boxes
         mCallbacksList = ArrayList()
-        mCallbacksList!!.add(mOnCompleteCheckBox)
-        mCallbacksList!!.add(mOnErrorCheckBox)
-        mCallbacksList!!.add(mOnFullscreenCheckBox)
-        mCallbacksList!!.add(mOnSeekCheckBox)
-        mCallbacksList!!.add(mOnSeekedCheckBox)
-        mCallbacksList!!.add(mOnIdleCheckBox)
-        mCallbacksList!!.add(mOnBufferingCheckBox)
-        mCallbacksList!!.add(mOnPlayCheckBox)
-        mCallbacksList!!.add(mOnPauseCheckBox)
-        mCallbacksList!!.add(mOnTimeCheckBox)
-        mCallbacksList!!.add(mOnAdCompleteCheckBox)
-        mCallbacksList!!.add(mOnAdErrorCheckBox)
-        mCallbacksList!!.add(mOnAdSkipCheckBox)
-        mCallbacksList!!.add(mOnAdPlayCheckBox)
-        mCallbacksList!!.add(mOnAdPauseCheckBox)
-        mCallbacksList!!.add(mOnAdTimeCheckBox)
-        mCallbacksList!!.add(mOnAdImpressionCheckBox)
-        mCallbacksList!!.add(mOnAdClickCheckBox)
-        mCallbacksList!!.add(mOnAdRequestCheckBox)
-        mCallbacksList!!.add(mOnAudioTracksCheckBox)
-        mCallbacksList!!.add(mOnAudioTracksChangedCheckBox)
-        mCallbacksList!!.add(mOnLevelsCheckBox)
-        mCallbacksList!!.add(mOnLevelsChangedCheckBox)
-        mCallbacksList!!.add(mOnFirstFrameCheckBox)
-        mCallbacksList!!.add(mOnDisplayClickCheckBox)
-        mCallbacksList!!.add(mOnPlaylistCompleteCheckBox)
-        mCallbacksList!!.add(mOnMetaCheckBox)
-        mCallbacksList!!.add(mOnCaptionsChangedCheckBox)
-        mCallbacksList!!.add(mOnCaptionsListCheckBox)
-        mCallbacksList!!.add(mOnPlaylistItemCheckBox)
-        mCallbacksList!!.add(mOnPlaylistCheckBox)
-        mCallbacksList!!.add(mOnSetupErrorCheckBox)
-        mCallbacksList!!.add(mOnBeforeCompleteCheckBox)
-        mCallbacksList!!.add(mOnBeforePlayCheckBox)
-        mCallbacksList!!.add(mOnMuteCheckBox)
-        mCallbacksList!!.add(mOnVisualQualityCheckBox)
-        mCallbacksList!!.add(mOnAdStartedCheckBox)
-        mCallbacksList!!.add(mOnControls)
-        mCallbacksList!!.add(mOnBufferChange)
-        mCallbacksList!!.add(mOnRelatedClose)
-        mCallbacksList!!.add(mOnRelatedOpen)
-        mCallbacksList!!.add(mOnRelatedPlay)
-        mCallbacksList!!.add(mOnAdCompanion)
-        mCallbacksList!!.add(mOnControlbarVisibilityChanged)
-        mCallbacksList!!.add(mOnAdSchedule)
+        mCallbacksList.add(mOnCompleteCheckBox)
+        mCallbacksList.add(mOnErrorCheckBox)
+        mCallbacksList.add(mOnFullscreenCheckBox)
+        mCallbacksList.add(mOnSeekCheckBox)
+        mCallbacksList.add(mOnSeekedCheckBox)
+        mCallbacksList.add(mOnIdleCheckBox)
+        mCallbacksList.add(mOnBufferingCheckBox)
+        mCallbacksList.add(mOnPlayCheckBox)
+        mCallbacksList.add(mOnPauseCheckBox)
+        mCallbacksList.add(mOnTimeCheckBox)
+        mCallbacksList.add(mOnAdCompleteCheckBox)
+        mCallbacksList.add(mOnAdErrorCheckBox)
+        mCallbacksList.add(mOnAdSkipCheckBox)
+        mCallbacksList.add(mOnAdPlayCheckBox)
+        mCallbacksList.add(mOnAdPauseCheckBox)
+        mCallbacksList.add(mOnAdTimeCheckBox)
+        mCallbacksList.add(mOnAdImpressionCheckBox)
+        mCallbacksList.add(mOnAdClickCheckBox)
+        mCallbacksList.add(mOnAdRequestCheckBox)
+        mCallbacksList.add(mOnAudioTracksCheckBox)
+        mCallbacksList.add(mOnAudioTracksChangedCheckBox)
+        mCallbacksList.add(mOnLevelsCheckBox)
+        mCallbacksList.add(mOnLevelsChangedCheckBox)
+        mCallbacksList.add(mOnFirstFrameCheckBox)
+        mCallbacksList.add(mOnDisplayClickCheckBox)
+        mCallbacksList.add(mOnPlaylistCompleteCheckBox)
+        mCallbacksList.add(mOnMetaCheckBox)
+        mCallbacksList.add(mOnCaptionsChangedCheckBox)
+        mCallbacksList.add(mOnCaptionsListCheckBox)
+        mCallbacksList.add(mOnPlaylistItemCheckBox)
+        mCallbacksList.add(mOnPlaylistCheckBox)
+        mCallbacksList.add(mOnSetupErrorCheckBox)
+        mCallbacksList.add(mOnBeforeCompleteCheckBox)
+        mCallbacksList.add(mOnBeforePlayCheckBox)
+        mCallbacksList.add(mOnMuteCheckBox)
+        mCallbacksList.add(mOnVisualQualityCheckBox)
+        mCallbacksList.add(mOnAdStartedCheckBox)
+        mCallbacksList.add(mOnControls)
+        mCallbacksList.add(mOnBufferChange)
+        mCallbacksList.add(mOnRelatedClose)
+        mCallbacksList.add(mOnRelatedOpen)
+        mCallbacksList.add(mOnRelatedPlay)
+        mCallbacksList.add(mOnAdCompanion)
+        mCallbacksList.add(mOnControlbarVisibilityChanged)
+        mCallbacksList.add(mOnAdSchedule)
 
         // This handles unchecking all checkboxes
         mCheckAll = findViewById(R.id.callback_check_all)
         mCheckAll = findViewById(R.id.callback_check_all)
-        mCheckAll.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            for (currectCheckBox in mCallbacksList!!) {
-                currectCheckBox!!.isChecked = isChecked
+        mCheckAll.setOnCheckedChangeListener({ buttonView, isChecked ->
+            for (currectCheckBox in mCallbacksList) {
+                currectCheckBox.isChecked = isChecked
             }
         })
     }
 
     private fun updateListeners() {
-        for (currectCheckBox in mCallbacksList!!) {
-            if (currectCheckBox!!.isChecked) {
+        for (currectCheckBox in mCallbacksList) {
+            if (currectCheckBox.isChecked) {
                 currectCheckBox.isChecked = false
                 currectCheckBox.isChecked = true
             }
@@ -688,20 +691,20 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     }
 
     val callbackLog: String
-        get() = mCallbackLog!!.text.toString()
+        get() = mCallbackLog.text.toString()
 
     override fun onControls(controlsEvent: ControlsEvent) {
         val prefix = """
             /// onControls START ///
-            
+
             """.trimIndent()
         val controls = """
             Controls = ${controlsEvent.controls}
-            
+
             """.trimIndent()
         val event = "ControlsEvent = $controlsEvent\n"
         val suffix = """
-            
+
             /// onControls END ///
             """.trimIndent()
         setOutput(prefix + controls + event + suffix)
@@ -710,22 +713,22 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onBufferChange(bufferChangeEvent: BufferChangeEvent) {
         val prefix = """
             /// onBufferChange START ///
-            
+
             """.trimIndent()
         val percentage = """
             Buffer Percentage = ${bufferChangeEvent.bufferPercent}
-            
+
             """.trimIndent()
         val duration = """
             Duration = ${bufferChangeEvent.duration}
-            
+
             """.trimIndent()
         val position = """
             Position = ${bufferChangeEvent.position}
-            
+
             """.trimIndent()
         val suffix = """
-            
+
             /// onBufferChange END ///
             """.trimIndent()
         setOutput(prefix + percentage + duration + position + suffix)
@@ -734,14 +737,14 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onRelatedClose(relatedCloseEvent: RelatedCloseEvent) {
         val prefix = """
             /// onRelatedClose START ///
-            
+
             """.trimIndent()
         val method = """
             Method = ${relatedCloseEvent.method}
-            
+
             """.trimIndent()
         val suffix = """
-            
+
             /// onRelatedClose END ///
             """.trimIndent()
         setOutput(prefix + method + suffix)
@@ -760,22 +763,22 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onRelatedOpen(relatedOpenEvent: RelatedOpenEvent) {
         val prefix = """
             /// onRelatedOpen START ///
-            
+
             """.trimIndent()
         val method = """
             Method = ${relatedOpenEvent.method}
-            
+
             """.trimIndent()
         val file = """
             File = ${relatedOpenEvent.url}
-            
+
             """.trimIndent()
         val playlist = """
             Playlist = ${playlistToString(relatedOpenEvent.items)}
-            
+
             """.trimIndent()
         val suffix = """
-            
+
             /// onRelatedOpen END ///
             """.trimIndent()
         setOutput(prefix + method + file + playlist + suffix)
@@ -784,37 +787,39 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onRelatedPlay(relatedPlayEvent: RelatedPlayEvent) {
         val prefix = """
             /// onRelatedPlay START ///
-            
+
             """.trimIndent()
         val auto = """
             Auto = ${relatedPlayEvent.auto}
-            
+
             """.trimIndent()
-        var item = ""
+         var item = ""
         item = """
             Item = ${relatedPlayEvent.item.file}
-            
+
             """.trimIndent()
         val suffix = """
-            
+
             /// onRelatedPlay END ///
             """.trimIndent()
         setOutput(prefix + auto + item + suffix)
     }
 
     fun updateJWPlayerView(player: JWPlayer?) {
-        mPlayer = player
+        if (player != null) {
+            mPlayer = player
+        }
         updateListeners()
     }
 
     override fun onControlBarVisibilityChanged(controlBarVisibilityEvent: ControlBarVisibilityEvent) {
         val prefix = """
             /// onControlBarVisibilityChanged START ///
-            
+
             """.trimIndent()
         val isVisible = "isVisible = " + controlBarVisibilityEvent.isVisible
         val suffix = """
-            
+
             /// onControlBarVisibilityChanged END ///
             """.trimIndent()
         setOutput(prefix + isVisible + suffix)
@@ -823,15 +828,15 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onAdSchedule(adScheduleEvent: AdScheduleEvent) {
         val prefix = """
             /// onAdSchedule START ///
-            
+
             """.trimIndent()
         val tag = """
             Tag = ${adScheduleEvent.tag}
-            
+
             """.trimIndent()
         val client = """
             Client = ${adScheduleEvent.client.name}
-            
+
             """.trimIndent()
         var json = ""
         val adCompanionList = adScheduleEvent.vmapAdBreaks
@@ -841,7 +846,7 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
         }
         json = "List<VMAPAdBreak> = \n$stringBuilder\n"
         val suffix = """
-            
+
             /// onAdSchedule END ///
             """.trimIndent()
         setOutput(prefix + client + tag + json + suffix)
@@ -850,11 +855,11 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onAdCompanions(adCompanionsEvent: AdCompanionsEvent) {
         val prefix = """
             /// onAdCompanion START ///
-            
+
             """.trimIndent()
         val tag = """
             Tag = ${adCompanionsEvent.tag}
-            
+
             """.trimIndent()
         var item = ""
         try {
@@ -871,15 +876,15 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
                 jsonArray.put(companionJson)
             }
             item = """
-                Ad Companions = 
+                Ad Companions =
                 ${jsonArray.toString(4)}
-                
+
                 """.trimIndent()
         } catch (e: JSONException) {
             e.printStackTrace()
         }
         val suffix = """
-            
+
             /// onAdCompanion END ///
             """.trimIndent()
         setOutput(prefix + tag + item + suffix)
@@ -938,33 +943,33 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onAudioTracks(audioTracksEvent: AudioTracksEvent) {
         val prefix = """
             /// onAudioTracks START ///
-            
+
             """.trimIndent()
         val stringBuilder = StringBuilder()
         for (currentTrack in audioTracksEvent.audioTracks) {
             val separator = """
                 -------------
-                
+
                 """.trimIndent()
             val name = """
                 Name: ${currentTrack.name}
-                
+
                 """.trimIndent()
             val lang = """
                 Language: ${currentTrack.language}
-                
+
                 """.trimIndent()
             val groupId = """
                 Group ID: ${currentTrack.groupId}
-                
+
                 """.trimIndent()
             val autoSelect = """
                 Autoselect: ${currentTrack.isAutoSelect}
-                
+
                 """.trimIndent()
             val defaultTrack = """
                 Default: ${currentTrack.isDefaultTrack}
-                
+
                 """.trimIndent()
             stringBuilder.append(name)
                 .append(lang)
@@ -974,7 +979,7 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
                 .append(separator)
         }
         val suffix = """
-            
+
             /// onAudioTracks END ///
             """.trimIndent()
         setOutput(prefix + stringBuilder.toString() + suffix)
@@ -1003,45 +1008,44 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onCaptionsList(captionsListEvent: CaptionsListEvent) {
         val prefix = """
             /// onCaptionsList START ///
-            
+
             """.trimIndent()
         val stringBuilder = StringBuilder()
         for (currentCaption in captionsListEvent.captions) {
             val separator = """
                 -------------
-                
+
                 """.trimIndent()
-            var isDefault = ""
             var file = ""
-            var label = ""
-            var kind = ""
-            if (currentCaption.file != null) {
+             var label = ""
+             var kind = ""
+            if (currentCaption.file != "") {
                 file = """
                     File: ${currentCaption.file}
-                    
+
                     """.trimIndent()
             }
-            if (currentCaption.label != null) {
+            if (currentCaption.label !="" ) {
                 label = """
                     Label: ${currentCaption.label}
-                    
+
                     """.trimIndent()
             }
-            if (currentCaption.kind != null) {
+            if (currentCaption.kind != CaptionType.CAPTIONS) {
                 kind = """
                     Kind: ${currentCaption.kind.name}
-                    
+
                     """.trimIndent()
             }
-            isDefault = """
-                isDefault: ${currentCaption.isDefault}
-                
-                """.trimIndent()
+            val isDefault: String = """
+               isDefault: ${currentCaption.isDefault}
+
+               """.trimIndent()
             stringBuilder.append(file).append(label).append(kind).append(isDefault)
                 .append(separator)
         }
         val suffix = """
-            
+
             /// onCaptionsList END ///
             """.trimIndent()
         setOutput(prefix + stringBuilder.toString() + suffix)
@@ -1106,33 +1110,33 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onLevels(levelsEvent: LevelsEvent) {
         val prefix = """
             /// onLevels START ///
-            
+
             """.trimIndent()
         val stringBuilder = StringBuilder()
         for (currentLevel in levelsEvent.levels) {
             val separator = """
                 -------------
-                
+
                 """.trimIndent()
             val index = """
                 Track Index: ${currentLevel.trackIndex}
-                
+
                 """.trimIndent()
             val label = """
                 Label: ${currentLevel.label}
-                
+
                 """.trimIndent()
             val bitrate = """
                 Bitrate: ${currentLevel.bitrate}
-                
+
                 """.trimIndent()
             val height = """
                 Height: ${currentLevel.height}
-                
+
                 """.trimIndent()
             val width = """
                 Width: ${currentLevel.width}
-                
+
                 """.trimIndent()
             val playlistPosition = "Playlist Position: " + currentLevel
                 .playlistPosition + "\n"
@@ -1140,7 +1144,7 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
                 .append(playlistPosition).append(separator)
         }
         val suffix = """
-            
+
             /// onLevels END ///
             """.trimIndent()
         setOutput(prefix + stringBuilder.toString() + suffix)
@@ -1149,70 +1153,70 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onMeta(metaEvent: MetaEvent) {
         val prefix = """
             /// onMeta START ///
-            
+
             """.trimIndent()
         var body = ""
         val metadata = metaEvent.metadata
         val videoID = """
             Video ID: ${metadata.videoId}
-            
+
             """.trimIndent()
         val videoMimeType = """
             Video MimeType: ${metadata.videoMimeType}
-            
+
             """.trimIndent()
         val videoBitrate = """
             Video Bitrate: ${metadata.videoBitrate}
-            
+
             """.trimIndent()
         val framerate = """
             Framerate: ${metadata.framerate}
-            
+
             """.trimIndent()
         val droppedFrames = """
             Dropped Frames: ${metadata.droppedFrames}
-            
+
             """.trimIndent()
         val width = """
             Width: ${metadata.width}
-            
+
             """.trimIndent()
         val height = """
             Height: ${metadata.height}
-            
+
             """.trimIndent()
         val lang = """
             Language: ${metadata.language}
-            
+
             """.trimIndent()
         val audioID = """
             Audio ID: ${metadata.audioId}
-            
+
             """.trimIndent()
         val audioMimeType = """
             Audio MimeType: ${metadata.audioMimeType}
-            
+
             """.trimIndent()
         val audioBitrate = """
             Audio Bitrate: ${metadata.audioBitrate}
-            
+
             """.trimIndent()
         val audioChannels = """
             Audio Channels: ${metadata.audioChannels}
-            
+
             """.trimIndent()
         val audioSamplingRate = """
             Audio Sampling Rate: ${metadata.audioSamplingRate}
-            
+
             """.trimIndent()
         val meta = """
             Metadata:
             ${metadata.id3Metadata}
-            
+
             """.trimIndent()
         body += videoID + videoMimeType + videoBitrate + framerate + droppedFrames + width + height + lang + audioID + audioMimeType + audioBitrate + audioChannels + audioSamplingRate + meta
         val suffix = """
-            
+
             /// onMeta END ///
             """.trimIndent()
         setOutput(prefix + body + suffix)
@@ -1221,7 +1225,7 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onMute(muteEvent: MuteEvent) {
         val output = """
             /// onMute START ///
-            Mute: 
+            Mute:
             ${muteEvent.mute}
             /// onMute END ///
             """.trimIndent()
@@ -1271,19 +1275,19 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onPlaylist(playlistEvent: PlaylistEvent) {
         val prefix = """
             /// onPlaylist START ///
-            
+
             """.trimIndent()
         val builder = StringBuilder()
         for (currentItem in playlistEvent.playlist) {
             val separator = """
                 -------------
-                
+
                 """.trimIndent()
             val item = currentItem.file
             builder.append(item).append(separator)
         }
         val suffix = """
-            
+
             /// onPlaylist END ///
             """.trimIndent()
         setOutput(prefix + builder.toString() + suffix)
@@ -1321,7 +1325,7 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
         setOutput(output)
     }
 
-    private var mOldTime = 0.0
+    private  var mOldTime = 0.0
     override fun onTime(timeEvent: TimeEvent) {
         val positionSeconds = timeEvent.position
         val durationSeconds = timeEvent.duration
@@ -1355,19 +1359,19 @@ class CallbackScreen : LinearLayout, OnIdleListener, OnBufferListener, OnPlayLis
     override fun onVisualQuality(visualQualityEvent: VisualQualityEvent) {
         val prefix = """
             /// onVisualQuality START ///
-            
+
             """.trimIndent()
         val mode = """
             Mode = ${visualQualityEvent.mode.name}
-            
+
             """.trimIndent()
         val qualityLevel = """
             Quality Level = ${visualQualityEvent.qualityLevel.label}
-            
+
             """.trimIndent()
         val reason = "Reason = " + visualQualityEvent.reason.name
         val suffix = """
-            
+
             /// onVisualQuality END ///
             """.trimIndent()
         setOutput(prefix + mode + qualityLevel + reason + suffix)

@@ -1,8 +1,7 @@
-package com.example.jwplayerdemo.ui
+package com.jwplayer.opensourcedemo.sample.ui
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.jwplayerdemo.adapter.ChapterVideoAdapter
-import com.example.jwplayerdemo.databinding.FragmentChapterDetailBinding
-import com.example.jwplayerdemo.models.NetworkResult
-import com.example.jwplayerdemo.models.VideoContent
-import com.example.jwplayerdemo.viewmodel.ChapterVideoViewModel
+import com.jwplayer.opensourcedemo.sample.adapter.ChapterVideoAdapter
+import com.jwplayer.opensourcedemo.databinding.FragmentChapterDetailBinding
+import com.jwplayer.opensourcedemo.sample.models.NetworkResult
+import com.jwplayer.opensourcedemo.sample.models.VideoContent
+import com.jwplayer.opensourcedemo.sample.viewmodel.ChapterVideoViewModel
 
 
 class ChapterVideoFragment : Fragment() {

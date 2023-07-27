@@ -1,7 +1,7 @@
-package com.example.jwplayerdemo.api
+package com.jwplayer.opensourcedemo.sample.api
 
 
-import com.example.jwplayerdemo.AppConstants
+import com.jwplayer.opensourcedemo.sample.AppConstants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,7 +19,7 @@ object RetrofitHelper {
             .addHeader("platform", "mobile")
             .addHeader("isSureMDM", "false")
             .addHeader("source", "nlearn")
-            .addHeader("Authorization", "Bearer "+AppConstants.BearerToken)
+            .addHeader("Authorization", "Bearer "+ AppConstants.BearerToken)
             .addHeader("admissionNumber", "mgmt11learn156")
             chain.proceed(request.build())
         }

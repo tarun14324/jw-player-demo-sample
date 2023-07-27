@@ -16,7 +16,6 @@ import com.jwplayer.pub.view.JWPlayerView
 class JWPlayerViewExample : AppCompatActivity(), OnFullscreenListener {
     private var mPlayerView: JWPlayerView? = null
     private var mCastContext: CastContext? = null
-    private var mCallbackScreen: CallbackScreen? = null
     private var mPlayer: JWPlayer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,24 +24,20 @@ class JWPlayerViewExample : AppCompatActivity(), OnFullscreenListener {
         // TODO: Add your license key
         LicenseUtil().setLicenseKey(this, "Ai0ZRuaM2EmDzgIy8QLZv08BxzZzXjw2Zg3W4XCnX9fnU33W")
         mPlayerView = findViewById(R.id.jwplayer)
-        mPlayer = mPlayerView.getPlayer()
+        mPlayer = mPlayerView!!.player
 
 
         // Handle hiding/showing of ActionBar
-        mPlayer.addListener(EventType.FULLSCREEN, this)
+        mPlayer!!.addListener(EventType.FULLSCREEN, this)
 
         // Keep the screen on during playback
-        KeepScreenOnHandler(mPlayer, window)
-
-        // Event Logging
-        mCallbackScreen = findViewById(R.id.callback_screen)
-        mCallbackScreen.registerListeners(mPlayer)
+        KeepScreenOnHandler(mPlayer!!, window)
 
         // Load a media source
         val config = PlayerConfig.Builder()
             .playlistUrl("https://cdn.jwplayer.com/v2/media/1sc0kL2N?format=json")
             .build()
-        mPlayer.setup(config)
+        mPlayer!!.setup(config)
 
         // Get a reference to the CastContext
         mCastContext = CastContext.getSharedInstance(this)

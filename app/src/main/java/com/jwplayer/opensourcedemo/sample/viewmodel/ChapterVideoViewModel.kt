@@ -1,15 +1,15 @@
-package com.example.jwplayerdemo.viewmodel
+package com.jwplayer.opensourcedemo.sample.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.jwplayerdemo.api.RetrofitHelper
-import com.example.jwplayerdemo.models.ChapterDetailVideo
-import com.example.jwplayerdemo.models.NetworkResult
+import com.jwplayer.opensourcedemo.sample.api.RetrofitHelper
+import com.jwplayer.opensourcedemo.sample.models.ChapterDetailVideo
+import com.jwplayer.opensourcedemo.sample.models.NetworkResult
 import kotlinx.coroutines.launch
 
 
-class ChapterVideoViewModel(): ViewModel() {
+class ChapterVideoViewModel : ViewModel() {
 
     var responseData: MutableLiveData<NetworkResult<ChapterDetailVideo?>> = MutableLiveData()
 

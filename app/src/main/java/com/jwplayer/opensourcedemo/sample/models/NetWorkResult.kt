@@ -1,4 +1,4 @@
-package com.example.jwplayerdemo.models
+package com.jwplayer.opensourcedemo.sample.models
 
 sealed class NetworkResult<T>(
     val data: T? = null,

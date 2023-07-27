@@ -1,9 +1,9 @@
-package com.example.jwplayerdemo.api
+package com.jwplayer.opensourcedemo.sample.api
 
-import com.example.jwplayerdemo.models.BaseResponse
-import com.example.jwplayerdemo.models.ChapterDetail
-import com.example.jwplayerdemo.models.ChapterDetailVideo
-import com.example.jwplayerdemo.models.DrmVideoDetail
+import com.jwplayer.opensourcedemo.sample.models.BaseResponse
+import com.jwplayer.opensourcedemo.sample.models.ChapterDetail
+import com.jwplayer.opensourcedemo.sample.models.ChapterDetailVideo
+import com.jwplayer.opensourcedemo.sample.models.DrmVideoDetail
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

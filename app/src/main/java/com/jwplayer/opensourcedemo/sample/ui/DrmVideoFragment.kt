@@ -1,4 +1,4 @@
-package com.example.jwplayerdemo.ui
+package com.jwplayer.opensourcedemo.sample.ui
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.example.jwplayerdemo.databinding.FragmentDrmVideoBinding
-import com.example.jwplayerdemo.models.DrmVideoDetail
-import com.example.jwplayerdemo.utils.Util
-import com.example.jwplayerdemo.viewmodel.DrmViewModel
+import com.jwplayer.opensourcedemo.sample.models.DrmVideoDetail
+import com.jwplayer.opensourcedemo.sample.utils.Util
+import com.jwplayer.opensourcedemo.sample.viewmodel.DrmViewModel
 import com.google.android.exoplayer2.drm.ExoMediaDrm
+import com.jwplayer.opensourcedemo.databinding.FragmentDrmVideoBinding
 import com.jwplayer.pub.api.JWPlayer
 import com.jwplayer.pub.api.configuration.PlayerConfig
 import com.jwplayer.pub.api.configuration.UiConfig

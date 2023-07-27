@@ -12,9 +12,8 @@ import com.jwplayer.pub.api.JWPlayerSupportFragment
 import com.jwplayer.pub.api.configuration.PlayerConfig
 
 class JWPlayerFragmentExample : AppCompatActivity() {
-    private var mPlayerFragment: JWPlayerSupportFragment? = null
-    private var mPlayer: JWPlayer? = null
-    private var mCallbackScreen: CallbackScreen? = null
+    private lateinit var mPlayerFragment: JWPlayerSupportFragment
+    private lateinit var mPlayer: JWPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_jwplayerfragment)
@@ -37,21 +36,17 @@ class JWPlayerFragmentExample : AppCompatActivity() {
         fm.executePendingTransactions()
 
         // Get a reference to the JWPlayerView from the fragment
-        mPlayer = mPlayerFragment.getPlayer()
+        mPlayer = mPlayerFragment.player
 
         // Keep the screen on during playback
         KeepScreenOnHandler(mPlayer, window)
-
-        // Event Logging
-        mCallbackScreen = findViewById(R.id.callback_screen)
-        mCallbackScreen.registerListeners(mPlayer)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         // Exit fullscreen when the user pressed the Back button
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mPlayer!!.fullscreen) {
-                mPlayer!!.setFullscreen(false, true)
+            if (mPlayer.fullscreen) {
+                mPlayer.setFullscreen(false, true)
                 return false
             }
         }

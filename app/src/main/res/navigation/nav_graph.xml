@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/chapterVideoFragment"
-        android:name="com.example.jwplayerdemo.ui.ChapterVideoFragment"
+        android:name="com.jwplayer.opensourcedemo.sample.ui.ChapterVideoFragment"
         android:label="ChapterVideoFragment" >
         <action
             android:id="@+id/action_chapterVideoFragment_to_drmVideoFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/drmVideoFragment"
-        android:name="com.example.jwplayerdemo.ui.DrmVideoFragment"
+        android:name="com.jwplayer.opensourcedemo.sample.ui.DrmVideoFragment"
         android:label="{toolbarTitle}">
 
         <argument
@@ -25,7 +25,7 @@
 
         <argument
             android:name="item"
-            app:argType="com.example.jwplayerdemo.models.VideoContent" />
+            app:argType="com.jwplayer.opensourcedemo.sample.models.VideoContent" />
 
     </fragment>
 </navigation>

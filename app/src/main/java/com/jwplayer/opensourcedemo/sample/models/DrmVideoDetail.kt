@@ -1,4 +1,4 @@
-package com.example.jwplayerdemo.models
+package com.jwplayer.opensourcedemo.sample.models
 
 import android.media.MediaDrm
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.example.jwplayerdemo.adapter
+package com.jwplayer.opensourcedemo.sample.adapter
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.jwplayerdemo.databinding.VideoListBinding
-import com.example.jwplayerdemo.models.VideoContent
+import com.jwplayer.opensourcedemo.databinding.VideoListBinding
+import com.jwplayer.opensourcedemo.sample.models.VideoContent
 
 
 class ChapterVideoAdapter(

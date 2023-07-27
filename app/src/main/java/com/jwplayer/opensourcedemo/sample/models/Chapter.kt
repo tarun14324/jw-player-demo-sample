@@ -1,4 +1,4 @@
-package com.example.jwplayerdemo.models
+package com.jwplayer.opensourcedemo.sample.models
 
 import com.google.gson.annotations.SerializedName
 
