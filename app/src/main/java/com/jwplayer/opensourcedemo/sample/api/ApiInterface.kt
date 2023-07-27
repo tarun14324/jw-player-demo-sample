@@ -17,7 +17,7 @@ interface ApiInterface {
         @Query("subject_id") subjectId: String,
     ): Response<BaseResponse<ChapterDetail>>
 
-    @GET("https://mocki.io/v1/7aad5459-a022-4f32-9b9a-31994a4367b8")
+    @GET("https://mocki.io/v1/4808d10d-048e-44e6-b221-7638116c5319")
     suspend fun fetchChapterDetail(
     ): Response<BaseResponse<List<ChapterDetailVideo>>>
 
