@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/chapterVideoFragment">
+
+
+    <fragment
+        android:id="@+id/chapterVideoFragment"
+        android:name="com.example.jwplayerdemo.ui.ChapterVideoFragment"
+        android:label="ChapterVideoFragment" >
+        <action
+            android:id="@+id/action_chapterVideoFragment_to_drmVideoFragment"
+            app:destination="@id/drmVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/drmVideoFragment"
+        android:name="com.example.jwplayerdemo.ui.DrmVideoFragment"
+        android:label="{toolbarTitle}">
+
+        <argument
+            android:name="toolbarTitle"
+            android:defaultValue="defaultTitle"
+            app:argType="string" />
+
+        <argument
+            android:name="item"
+            app:argType="com.example.jwplayerdemo.models.VideoContent" />
+
+    </fragment>
+</navigation>
