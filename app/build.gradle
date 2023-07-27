@@ -6,7 +6,7 @@ apply plugin:  'kotlin-parcelize'
 
 android {
 	compileSdkVersion 34
-	archivesBaseName="JW Player"
+	archivesBaseName="JW Player-alpha01"
 
 	defaultConfig {
 		minSdkVersion 21
